@@ -1,0 +1,125 @@
+class CompletionRewards : EventHandler
+{   
+    bool got_secrets;
+    bool got_items;
+    bool got_enemies;
+    bool rewarded;
+    
+    bool showIntermediateMessages()
+    {
+        PlayerInfo myinfo = players[consoleplayer];
+        return CVar.GetCVar("cr_intermediate_messages",myinfo).GetBool();
+    }
+    
+    bool intermediateBold()
+    {
+        PlayerInfo myinfo = players[consoleplayer];
+        return CVar.GetCVar("cr_bold_intermediate",myinfo).GetBool();
+    }
+    
+    String intermediateFont()
+    {
+        PlayerInfo myinfo = players[consoleplayer];
+        return CVar.GetCVar("cr_font_intermediate",myinfo).GetString();
+    }
+    
+    bool getBold()
+    {
+        PlayerInfo myinfo = players[consoleplayer];
+        return CVar.GetCVar("cr_bold_complete",myinfo).GetBool();
+    }
+    
+    String getFont()
+    {
+        PlayerInfo myinfo = players[consoleplayer];
+        return CVar.GetCVar("cr_font_complete",myinfo).GetString();
+    }
+    
+    String getCompleteMessage()
+    {
+        if (cr_give_rewards == 1)
+            return "Mission Complete!".." ".."Adding Medical Kit!";
+        else if (cr_give_rewards == 2)
+            return "Mission Complete!".." ".."Adding Medical Kit!";
+        else if (cr_give_rewards == 3)
+            return "Mission Complete!".." ".."Adding Soulsphere!";
+        else if (cr_give_rewards == 4)
+            return "Mission Complete!".." ".."Adding Megasphere!";
+        else if (cr_give_rewards == 5)
+            return "Mission Complete!".." ".."Adding Backpack!";
+        else if (cr_give_rewards == 6)
+            return "Mission Complete!".." ".."Adding All Map (next map)!";
+            
+        return "Mission Complete!";
+    }
+    
+    void RewardAllPlayers()
+    {
+        for(int i = 0;i < players.size();i++)
+        {
+            if (playeringame[i])
+            {
+                let player = players[i].mo;
+                
+                switch (cr_give_rewards)
+                {
+                    case 1:
+                        player.GiveInventory("Health",100);
+                        break;
+                    case 2:
+                        player.GiveInventory("Healthpack",100);
+                        break;
+                    case 3:
+                        player.GiveInventory("Soulsphere",1);
+                        break;
+                    case 4:
+                        player.GiveInventory("Megasphere",1);
+                        break;
+                    case 5:
+                        player.GiveInventory("Backpack",1);
+                        break;
+                    case 6:
+                        player.GiveInventory("AllmapInventory",1);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+    
+    override void WorldTick()
+    {
+        //Don't run on empty/bad maps
+        if (level.total_secrets == 0 || level.total_items == 0 || level.total_monsters == 0)
+            return;
+    
+        if (level.found_secrets == level.total_secrets && !got_secrets)
+        {
+            got_secrets = true;
+            if (showIntermediateMessages())
+                Object.C_MidPrint(intermediateFont(), "All Secrets Found", intermediateBold());
+        }
+        
+        if (level.found_items == level.total_items && !got_items)
+        {
+            got_items = true;
+            if (showIntermediateMessages())
+                Object.C_MidPrint(intermediateFont(), "All Items Found", intermediateBold());
+        }
+        
+        if (level.killed_monsters == level.total_monsters && !got_enemies)
+        {
+            got_enemies = true;
+            if (showIntermediateMessages())
+                Object.C_MidPrint(intermediateFont(), "All Monsters Killed", intermediateBold());
+        }
+        
+        if (got_enemies && got_items && got_secrets && !rewarded)
+        {
+            rewarded = true;
+            RewardAllPlayers();
+            Object.C_MidPrint(getFont(), getCompleteMessage(), getBold());
+        }
+    }
+}

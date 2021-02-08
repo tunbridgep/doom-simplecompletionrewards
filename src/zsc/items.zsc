@@ -1,0 +1,18 @@
+class AllmapInventory : Allmap
+{
+    Default
+    {
+        +INVENTORY.INVBAR;
+        Inventory.Icon "MAPINV";
+    }
+}
+
+class Healthpack : HealthPickup
+{
+    Default
+    {
+        Health 100;
+        +INVENTORY.INVBAR;
+        Inventory.Icon "MEDPINV";
+    }
+}

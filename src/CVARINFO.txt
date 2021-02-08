@@ -1,0 +1,8 @@
+//set health rewards for 100%ing a map
+
+server int cr_give_rewards = 0; //0 = nothing. 1 = health kit. 2 = health pack (inventory item). 3 = soulsphere. 4 = megasphere. 5 = backpack. 6 = allmap (next map)
+user bool cr_intermediate_messages = true;
+user bool cr_bold_complete = true;
+user bool cr_bold_intermediate = true;
+user string cr_font_intermediate = "smallfont";
+user string cr_font_complete = "bigfont";
