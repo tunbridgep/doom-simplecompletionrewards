@@ -1,0 +1,27 @@
+[enu default] 
+
+COMPLETION_NOTHING = "Nothing";
+COMPLETION_HEALTH_KIT = "Health Kit (Restore up to 100 health)";
+COMPLETION_HEALTH_PACK = "Health Pack (Restore up to 100 health, usable from inventory)";
+COMPLETION_SOULSPHERE = "Soulsphere (Restore +100 health, up to 200)";
+COMPLETION_MEGASPHERE = "Megasphere (Restore to 200 health, 200 armor)";
+COMPLETION_BACKPACK = "Backpack (Extra ammo)";
+COMPLETION_ALLMAP = "All Map (Fully reveal map, usable from inventory)";
+
+COMPLETION_SETTINGS = "Simple Completion Rewards Settings";
+COMPLETION_REWARD = "Reward Item";
+COMPLETION_INTERMEDIATE_MESSAGES = "Show Intermediate Messages";
+COMPLETION_INTERMEDIATE_MESSAGES_DESC = "Show on-screen messages when achieving 100% kills, secrets and items.";
+
+COMPLETION_MESSAGE_SETTINGS = "Message Settings";
+COMPLETION_BOLD_COMPLETE = "Bold 'Mission Complete' Message";
+COMPLETION_BOLD_INTERMEDIATE = "Bold Intermediate Messages";
+COMPLETION_FONT_INTERMEDIATE = "Intermediate Message Font";
+COMPLETION_FONT_COMPLETE = "'Mission Complete' Message Font";
+
+COMPLETION_MISSION_COMPLETE = "Mission Complete!";
+COMPLETION_ADDING_HEALTH = "Adding Medical Kit";
+COMPLETION_ADDING_SOULSPHERE = "Adding Soulsphere";
+COMPLETION_ADDING_MEGASPHERE = "Adding Megasphere";
+COMPLETION_ADDING_BACKPACK = "Adding Backpack";
+COMPLETION_ADDING_ALLMAP = "Adding Allmap";

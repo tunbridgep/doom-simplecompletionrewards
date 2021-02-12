@@ -1,1 +1,29 @@
- 
+OptionValue CompletionRewardOption
+{
+    0, "$COMPLETION_NOTHING"
+    1, "$COMPLETION_HEALTH_KIT"
+    2, "$COMPLETION_HEALTH_PACK"
+    3, "$COMPLETION_SOULSPHERE"
+    4, "$COMPLETION_MEGASPHERE"
+    5, "$COMPLETION_BACKPACK"
+    6, "$COMPLETION_ALLMAP"
+}
+
+OptionMenu "CompletionRewardsSettings"
+{
+    Title "$COMPLETION_SETTINGS"
+    Option "$COMPLETION_REWARD", "cr_give_rewards", CompletionRewardOption
+    Option "$COMPLETION_INTERMEDIATE_MESSAGES", "cr_intermediate_messages", YesNo
+    StaticText "$COMPLETION_INTERMEDIATE_MESSAGES_DESC"
+    StaticText ""
+    StaticText "$COMPLETION_MESSAGE_SETTINGS", Red
+    Option "$COMPLETION_BOLD_COMPLETE", "cr_bold_complete", YesNo
+    Option "$COMPLETION_BOLD_INTERMEDIATE", "cr_bold_intermediate", YesNo
+    //TextField "$COMPLETION_FONT_INTERMEDIATE", "cr_font_intermediate"
+    //TextField "$COMPLETION_FONT_COMPLETE", "cr_font_complete"
+}
+
+AddOptionMenu "OptionsMenu"
+{
+    Submenu "$COMPLETION_SETTINGS", "CompletionRewardsSettings"
+}

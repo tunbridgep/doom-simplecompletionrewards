@@ -4,6 +4,12 @@ class CompletionRewards : EventHandler
     bool got_items;
     bool got_enemies;
     bool rewarded;
+
+    bool ClassExists(string classname)
+    {
+        Class<Actor> cls = classname;
+        return cls != null;
+    }
     
     bool showIntermediateMessages()
     {
@@ -37,24 +43,35 @@ class CompletionRewards : EventHandler
     
     String getCompleteMessage()
     {
+        String completemsg = Stringtable.Localize("$COMPLETION_MISSION_COMPLETE");
+    
         if (cr_give_rewards == 1)
-            return "Mission Complete!".." ".."Adding Medical Kit!";
+            return completemsg.." "..Stringtable.Localize("$COMPLETION_ADDING_HEALTH");
         else if (cr_give_rewards == 2)
-            return "Mission Complete!".." ".."Adding Medical Kit!";
+            return completemsg.." "..Stringtable.Localize("$COMPLETION_ADDING_HEALTH");
         else if (cr_give_rewards == 3)
-            return "Mission Complete!".." ".."Adding Soulsphere!";
+            return completemsg.." "..Stringtable.Localize("$COMPLETION_ADDING_SOULSPHERE");
         else if (cr_give_rewards == 4)
-            return "Mission Complete!".." ".."Adding Megasphere!";
+            return completemsg.." "..Stringtable.Localize("$COMPLETION_ADDING_MEGASPHERE");
         else if (cr_give_rewards == 5)
-            return "Mission Complete!".." ".."Adding Backpack!";
+            return completemsg.." "..Stringtable.Localize("$COMPLETION_ADDING_BACKPACK");
         else if (cr_give_rewards == 6)
-            return "Mission Complete!".." ".."Adding All Map (next map)!";
+            return completemsg.." "..Stringtable.Localize("$COMPLETION_ADDING_ALLMAP");
             
-        return "Mission Complete!";
+        return completemsg;
+    }
+    
+    void GiveItem(Actor player, string item1, string item2, bool cheat)
+    {
+        if (ClassExists(item1))
+            player.GiveInventory(item1,1, cheat);
+        else
+            player.GiveInventory(item2,1, cheat);
     }
     
     void RewardAllPlayers()
     {
+        //Console.Printf("Rewarding players");
         for(int i = 0;i < players.size();i++)
         {
             if (playeringame[i])
@@ -67,19 +84,22 @@ class CompletionRewards : EventHandler
                         player.GiveInventory("Health",100);
                         break;
                     case 2:
-                        player.GiveInventory("Healthpack",100);
+                        player.GiveInventory("Healthpack",100,true);
                         break;
                     case 3:
-                        player.GiveInventory("Soulsphere",1);
+                        //player.GiveInventory("Soulsphere",1,true);
+                        GiveItem(player,"SoulspherePickup","Soulsphere",true); //Support Simple Inventory Items mod.
                         break;
                     case 4:
-                        player.GiveInventory("Megasphere",1);
+                        //player.GiveInventory("Megasphere",1,true);
+                        GiveItem(player,"MegaspherePickup","Megasphere",true); //Support Simple Inventory Items mod.
                         break;
                     case 5:
-                        player.GiveInventory("Backpack",1);
+                        //player.GiveInventory("Backpack",1,true);
+                        GiveItem(player,"BackpackPickup","Backpack",true); //Support Simple Inventory Items mod.
                         break;
                     case 6:
-                        player.GiveInventory("AllmapInventory",1);
+                        player.GiveInventory("AllmapInventory",1,true);
                         break;
                     default:
                         break;
@@ -90,6 +110,7 @@ class CompletionRewards : EventHandler
     
     override void WorldTick()
     {
+    
         //Don't run on empty/bad maps
         if (level.total_secrets == 0 || level.total_items == 0 || level.total_monsters == 0)
             return;
@@ -98,28 +119,28 @@ class CompletionRewards : EventHandler
         {
             got_secrets = true;
             if (showIntermediateMessages())
-                Object.C_MidPrint(intermediateFont(), "All Secrets Found", intermediateBold());
+                Console.MidPrint(smallfont, "All Secrets Found", intermediateBold());
         }
         
         if (level.found_items == level.total_items && !got_items)
         {
             got_items = true;
             if (showIntermediateMessages())
-                Object.C_MidPrint(intermediateFont(), "All Items Found", intermediateBold());
+                Console.MidPrint(smallfont, "All Items Found", intermediateBold());
         }
         
         if (level.killed_monsters == level.total_monsters && !got_enemies)
         {
             got_enemies = true;
             if (showIntermediateMessages())
-                Object.C_MidPrint(intermediateFont(), "All Monsters Killed", intermediateBold());
+                Console.MidPrint(smallfont, "All Monsters Killed", intermediateBold());
         }
         
         if (got_enemies && got_items && got_secrets && !rewarded)
         {
             rewarded = true;
             RewardAllPlayers();
-            Object.C_MidPrint(getFont(), getCompleteMessage(), getBold());
+            Console.MidPrint(bigfont, getCompleteMessage(), getBold());
         }
     }
 }
