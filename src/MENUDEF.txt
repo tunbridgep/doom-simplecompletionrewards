@@ -13,12 +13,20 @@ OptionMenu "CompletionRewardsSettings"
 {
     Title "$COMPLETION_SETTINGS"
     Option "$COMPLETION_REWARD", "cr_give_rewards", CompletionRewardOption
-    Option "$COMPLETION_INTERMEDIATE_MESSAGES", "cr_intermediate_messages", YesNo
-    StaticText "$COMPLETION_INTERMEDIATE_MESSAGES_DESC"
+    Slider "$COMPLETION_REWARD_REQUIRED_KILLS", "cr_kills_required", 0,100,1,0
+    Slider "$COMPLETION_REWARD_REQUIRED_ITEMS", "cr_items_required", 0,100,1,0
+    Slider "$COMPLETION_REWARD_REQUIRED_SECRETS", "cr_secrets_required", 0,100,1,0
+    StaticText "$COMPLETION_REWARD_REQUIRED_DESC"
+    Slider "$COMPLETION_REWARD_MINIMUM_KILLS", "cr_minimum_enemies", 0,100,1,0
+    StaticText "$COMPLETION_REWARD_MINIMUM_KILLS_DESC"
+    
     StaticText ""
     StaticText "$COMPLETION_MESSAGE_SETTINGS", Red
     Option "$COMPLETION_BOLD_COMPLETE", "cr_bold_complete", YesNo
+    StaticText ""
+    Option "$COMPLETION_INTERMEDIATE_MESSAGES", "cr_intermediate_messages", YesNo
     Option "$COMPLETION_BOLD_INTERMEDIATE", "cr_bold_intermediate", YesNo
+    StaticText "$COMPLETION_INTERMEDIATE_MESSAGES_DESC"
     //TextField "$COMPLETION_FONT_INTERMEDIATE", "cr_font_intermediate"
     //TextField "$COMPLETION_FONT_COMPLETE", "cr_font_complete"
 }

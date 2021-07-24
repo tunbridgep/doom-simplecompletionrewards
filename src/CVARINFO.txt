@@ -4,5 +4,10 @@ server int cr_give_rewards = 0; //0 = nothing. 1 = health kit. 2 = health pack (
 user bool cr_intermediate_messages = true;
 user bool cr_bold_complete = true;
 user bool cr_bold_intermediate = true;
+server int cr_kills_required = 100; //Percentage of kills required to be rewarded, from 0 to 100
+server int cr_items_required = 100; //Percentage of items required to be found to be rewarded, from 0 to 100
+server int cr_secrets_required = 100; //Percentage of secrets required to be found to be rewarded, from 0 to 100
+server int cr_minimum_enemies = 10; //Minimum enemies required to be present in a level for rewards to be given.
+server bool cr_debug = false;
 //user string cr_font_intermediate = "smallfont";
 //user string cr_font_complete = "bigfont";

@@ -4,6 +4,8 @@ class AllmapInventory : Allmap
     {
         +INVENTORY.INVBAR;
         Inventory.Icon "MAPINV";
+        Inventory.Amount 1;
+        Inventory.MaxAmount 99;
     }
 }
 
@@ -14,5 +16,7 @@ class Healthpack : HealthPickup
         Health 100;
         +INVENTORY.INVBAR;
         Inventory.Icon "MEDPINV";
+        Inventory.Amount 1;
+        Inventory.MaxAmount 99;
     }
 }

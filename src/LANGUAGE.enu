@@ -11,7 +11,18 @@ COMPLETION_ALLMAP = "All Map (Fully reveal map, usable from inventory)";
 COMPLETION_SETTINGS = "Simple Completion Rewards Settings";
 COMPLETION_REWARD = "Reward Item";
 COMPLETION_INTERMEDIATE_MESSAGES = "Show Intermediate Messages";
-COMPLETION_INTERMEDIATE_MESSAGES_DESC = "Show on-screen messages when achieving 100% kills, secrets and items.";
+COMPLETION_INTERMEDIATE_MESSAGES_DESC = "Show on-screen messages when achieving the required threshold for kills, secrets and items.";
+
+COMPLETION_INTERMEDIATE_MONSTERS = "All Monsters Killed!";
+COMPLETION_INTERMEDIATE_ITEMS = "All Items Found!";
+COMPLETION_INTERMEDIATE_SECRETS = "All Secrets Found!";
+
+COMPLETION_REWARD_REQUIRED_KILLS = "Required Kill Percentage";
+COMPLETION_REWARD_REQUIRED_ITEMS = "Required Item Percentage";
+COMPLETION_REWARD_REQUIRED_SECRETS = "Required secret Percentage";
+COMPLETION_REWARD_REQUIRED_DESC = "The total percentage of kills, items and secrets required in order to consider a map complete";
+COMPLETION_REWARD_MINIMUM_KILLS = "Minimum Kills Required";
+COMPLETION_REWARD_MINIMUM_KILLS_DESC = "The minimum number of enemies required to be present in a map to consider it valid for rewards";
 
 COMPLETION_MESSAGE_SETTINGS = "Message Settings";
 COMPLETION_BOLD_COMPLETE = "Bold 'Mission Complete' Message";

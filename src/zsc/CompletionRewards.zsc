@@ -84,7 +84,7 @@ class CompletionRewards : EventHandler
                         player.GiveInventory("Health",100);
                         break;
                     case 2:
-                        player.GiveInventory("Healthpack",100,true);
+                        player.GiveInventory("Healthpack",1,true);
                         break;
                     case 3:
                         //player.GiveInventory("Soulsphere",1,true);
@@ -108,32 +108,68 @@ class CompletionRewards : EventHandler
         }
     }
     
+    /*
+    private float GetPercentage(int value) //expects a value between 0 and 100 for percentage
+    {
+        return value / 100.0;
+    }
+    
+    private bool GetRequiredKills()
+    {
+        let kill_percent = GetPercentage(cr_kills_required);
+        return kill_percent > 0 && 
+    }
+    */
+    
+    private bool IsTitlemap()
+    {
+        return gamestate == 7;
+    }
+    
+    override void PlayerEntered (PlayerEvent e)
+    {
+        //Don't let this thing run on a titlemap
+        if (IsTitlemap() && !bDESTROYED)
+        {
+            Destroy();
+            return;
+        }
+    }
+    
     override void WorldTick()
     {
-    
         //Don't run on empty/bad maps
-        if (level.total_secrets == 0 || level.total_items == 0 || level.total_monsters == 0)
+        if (level.total_secrets == 0 || level.total_items == 0 || level.total_monsters <= cr_minimum_enemies)
             return;
     
-        if (level.found_secrets == level.total_secrets && !got_secrets)
+        let kill_percent = (cr_kills_required / 100.0);
+        int required_kills = (level.total_monsters * kill_percent) + 0.5;
+        
+        let item_percent = (cr_items_required / 100.0);
+        int required_items = (level.total_items * item_percent) + 0.5;
+        
+        let secret_percent = (cr_secrets_required / 100.0);
+        int required_secrets = (level.total_secrets * secret_percent) + 0.5;
+    
+        if (level.found_secrets >= required_secrets && !got_secrets)
         {
             got_secrets = true;
             if (showIntermediateMessages())
-                Console.MidPrint(smallfont, "All Secrets Found", intermediateBold());
+                Console.MidPrint(smallfont, Stringtable.Localize("$COMPLETION_INTERMEDIATE_SECRETS"), intermediateBold());
         }
         
-        if (level.found_items == level.total_items && !got_items)
+        if (level.found_items >= required_items && !got_items)
         {
             got_items = true;
             if (showIntermediateMessages())
-                Console.MidPrint(smallfont, "All Items Found", intermediateBold());
+                Console.MidPrint(smallfont, Stringtable.Localize("$COMPLETION_INTERMEDIATE_ITEMS"), intermediateBold());
         }
         
-        if (level.killed_monsters == level.total_monsters && !got_enemies)
+        if (level.killed_monsters >= required_kills && !got_enemies)
         {
             got_enemies = true;
             if (showIntermediateMessages())
-                Console.MidPrint(smallfont, "All Monsters Killed", intermediateBold());
+                Console.MidPrint(smallfont, Stringtable.Localize("$COMPLETION_INTERMEDIATE_MONSTERS"), intermediateBold());
         }
         
         if (got_enemies && got_items && got_secrets && !rewarded)
